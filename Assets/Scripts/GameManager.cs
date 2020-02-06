@@ -388,7 +388,7 @@ public class GameManager : MonoBehaviour
         Debug.Log(traceHolder);
     }
 
-    //EVENTOS PARA EL UNITY ANALYTICS
+       //EVENTOS PARA EL UNITY ANALYTICS
     public void ContinuarAnalyticsEvent()
     {
         Dictionary<string, object> dictionary = new Dictionary<string, object>
@@ -414,7 +414,7 @@ public class GameManager : MonoBehaviour
                 //{"CuantasVeces", 1 }
             };
 
-            analyticsTrace(dictionary, "IniciarNivel" + levelIndex);
+            analyticsTrace(dictionary, "IniciarNivel");
             Analytics.CustomEvent("IniciarNivel", dictionary);
         }
     }
@@ -695,12 +695,12 @@ public class GameManager : MonoBehaviour
             {"EjeX", Mathf.FloorToInt( EjeX ) },
             {"EjeY", Mathf.FloorToInt( EjeY ) },
             {"PuntoDeMuerte", n },
-            {"ObjetoQueLoMato", culpable + "Z" + GetZone(levelIndex) + "N" + instance.levelNumber},
+            {"ObjetoQueLoMato", culpable },
             {"TipoDeObjetoQueLoMato", ConvertToType(culpable) }
         };
 
         analyticsTrace(dictionary, "MatarEnemigo" + "Z" + dictionary["Zona"] + "N" + dictionary["Nivel"]);
-        Analytics.CustomEvent("MatarEnemigo", dictionary);
+        Analytics.CustomEvent("MatarEnemigo" + "Z" + dictionary["Zona"] + "N" + dictionary["Nivel"], dictionary);
     }
 
     //Inputs del Mapa
@@ -770,7 +770,7 @@ public class GameManager : MonoBehaviour
         };
         
         analyticsTrace(dictionary, "MapaCompletarCutscene");
-        Analytics.CustomEvent("MapaCompletarCutscene", dictionary);        
+        Analytics.CustomEvent("MapaCompletarCutscene", dictionary);
     }
 
     public void MapaSaltearCutscene(int total, int ultimo, string levelName, int zone)
